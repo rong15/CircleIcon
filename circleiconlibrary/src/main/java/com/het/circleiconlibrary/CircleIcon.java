@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -60,7 +61,7 @@ public class CircleIcon extends AppCompatImageView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        init();
+
         if (mLoaded){
             mPaint = new Paint();
             mPaint.setColor(mCircleColor);
@@ -69,6 +70,8 @@ public class CircleIcon extends AppCompatImageView {
             mPaint.setStyle(Paint.Style.STROKE);
 
             canvas.drawCircle(getWidth()/2,getHeight()/2,getWidth()/2-mCircleWidth/2,mPaint);
+        }else{
+            init();
         }
 
 
@@ -118,11 +121,13 @@ public class CircleIcon extends AppCompatImageView {
             @Override
             public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
 
+                Log.i("mylog","onLoadingFailed");
             }
 
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 
+                Log.i("mylog","onLoadingComplete");
                 mLoaded = true;
                 invalidate();
             }
